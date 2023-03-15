@@ -74,12 +74,12 @@ with st.form(key='params_for_api'):
 
 if st.button("Make prediction"):
 
-    speaker_recogn_url_local = 'http://localhost:8000/predict'
-    # speaker_recogn_url_local
+    # speaker_recogn_url_local = 'http://localhost:8000/predict'
+    speaker_recogn_url = 'https://whodis-ebbxnjt4eq-ew.a.run.app'
 
     files = dict(wav=audio.getvalue())
 
-    response = requests.post(speaker_recogn_url_local, files=files)
+    response = requests.post(speaker_recogn_url, files=files)
     # st.write(response)
     prediction = response.json()
     # st.write(prediction)
