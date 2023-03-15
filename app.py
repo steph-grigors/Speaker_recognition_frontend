@@ -1,13 +1,8 @@
 import streamlit as st
 import requests
-from tensorflow.io import read_file
-from tensorflow.audio import decode_wav
 import wave
 import numpy as np
 import matplotlib.pyplot as plt
-import librosa
-import librosa.display
-
 
 ############# Colors #############
 
