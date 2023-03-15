@@ -5,17 +5,18 @@ from tensorflow.audio import decode_wav
 import wave
 import numpy as np
 import matplotlib.pyplot as plt
+import librosa
+import librosa.display
 
 
+############# Colors #############
 
-
+# st.cobackgroundColor="#2a9d8f"
 
 with st.container():
-    st.markdown("<h1 style='text-align: center; color: black;'>Who\'s this ?</h1>", unsafe_allow_html=True)
-
+    st.markdown("<h1 style='text-align: center; color: black;'>Who dis ?</h1>", unsafe_allow_html=True)
 with st.container():
     st.empty()
-
 with st.container():
     st.empty()
 with st.container():
@@ -24,9 +25,19 @@ with st.container():
     st.empty()
 
 audio = st.file_uploader('**Please upload an audio file** (.wav) :notes:',type=['wav'],
-                accept_multiple_files=False,)
+                accept_multiple_files=False)
+
+# audio, sample_rate = librosa.load(audiofile_path, sr= None, mono = True, offset = 0.0, duration = None, res_type='soxr_hq')
+
 if audio:
     st.audio(audio)
+
+    # y, sample_rate = librosa.load(audio, sr= None, mono = True, offset = 0.0, duration = None, res_type='soxr_hq')
+    # mel_spect = librosa.feature.melspectrogram(y=y, sr=sample_rate, n_fft=512, hop_length=128, center = True, pad_mode = 'symmetric')
+    # mel_spect = librosa.power_to_db(mel_spect, ref=np.max)
+    # plt.title('Mel Spectrogram');
+    # plt.colorbar(format='%+2.0f dB');
+    # figure_sound_wave = librosa.display.specshow(mel_spect, y_axis='mel', fmax=16000, x_axis='time');
 
     wav_obj = wave.open(audio, 'rb')
     sample_freq = wav_obj.getframerate()
@@ -36,7 +47,6 @@ if audio:
     signal_wave = wav_obj.readframes(n_samples)
     signal_array = np.frombuffer(signal_wave, dtype=np.int16)
     times = np.linspace(0, n_samples/sample_freq, num=n_samples)
-
 
     figure_sound_wave = plt.figure(figsize=(15, 5))
     plt.plot(times,signal_array)
@@ -57,43 +67,23 @@ if audio:
     plt.show()
     st.pyplot(figure_sound_spectrogram)
 
-
-# def plot_wave(audio):
-#     # coded_wav = read_file(audio)
-#     # plot_sound = decode_wav(coded_wav)
-#     # st.pyplot(plot_sound)
-#     st.pyplot.figure(figsize=(15, 5))
-#     st.pyplot(df_train_preproc_out['times'][0],df_train_preproc_out['signal_array'][0])
-#     st.pyplot.title('signal_array')
-#     st.pyplot.ylabel('Signal Value')
-#     plt.xlabel('Time (s)')
-#     plt.xlim(0, df_train_preproc_out['t_audio'][0])
-#     st.pyplot.show()
-
-
 # st.button('Display wave sound',on_click=plot_wave)
 
-
 with st.form(key='params_for_api'):
+    audiofile = audio
 
-    day_of_week = st.number_input('day_of_week')
-    time = st.number_input('time')
+if st.button("Make prediction"):
 
-    st.form_submit_button('Make prediction')
+    speaker_recogn_url_local = 'http://localhost:8000/predict'
+    # speaker_recogn_url_local
 
-params = {
-    'day_of_week':day_of_week,
-    'time':time}
+    files = dict(wav=audio.getvalue())
 
-speaker_recogn_url = 'https://speaker-recognition-docker-image-ebbxnjt4eq-ew.a.run.app/predict'
-response = requests.get(speaker_recogn_url, params=params).json()
-
-
-# st.markdown(type(response))
-
-# pred = response['wait']
-st.markdown(response)
+    response = requests.post(speaker_recogn_url_local, files=files)
+    # st.write(response)
+    prediction = response.json()
+    # st.write(prediction)
+    # name = prediction[1]
 
 
-# Speakes = ['rxr', 'ljm', 'jmk', 'rms', 'gka', 'ksp', 'awb', 'clb', 'fem',
-#        'bdl', 'lnh', 'ahw', 'slp', 'slt', 'eey', 'aew', 'axb', 'aup'],
+    st.header(f'The speaker is :{prediction}')
