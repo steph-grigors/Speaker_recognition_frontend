@@ -12,4 +12,6 @@ requests
 # you might need to add some extra stuff hereunder, e.g. pandas
 
 # Data science
-# pandas
+pandas
+numpy
+matplotlib
