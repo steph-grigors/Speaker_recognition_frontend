@@ -4,10 +4,6 @@ import wave
 import numpy as np
 import matplotlib.pyplot as plt
 
-############# Colors #############
-
-# st.cobackgroundColor="#2a9d8f"
-
 with st.container():
     st.markdown("<h1 style='text-align: center; color: black;'>Who dis ?</h1>", unsafe_allow_html=True)
 with st.container():
@@ -69,8 +65,8 @@ with st.form(key='params_for_api'):
 
 if st.button("Make prediction"):
 
-    # speaker_recogn_url_local = 'http://localhost:8000/predict'
-    speaker_recogn_url = 'https://whodis-ebbxnjt4eq-ew.a.run.app'
+    speaker_recogn_url = 'http://localhost:8000/predict'
+    # speaker_recogn_url = 'https://whodis-ebbxnjt4eq-ew.a.run.app'
 
     files = dict(wav=audio.getvalue())
 
@@ -78,7 +74,15 @@ if st.button("Make prediction"):
     # st.write(response)
     prediction = response.json()
     # st.write(prediction)
+
+    prediction = prediction['name']
+    # st.write(prediction)
     # name = prediction[1]
 
 
-    st.header(f'The speaker is :{prediction}')
+    # text = f'The speaker is :{prediction}'
+
+    # text
+
+    st.write('The speaker is',prediction)
+    # st.header(text)
