@@ -17,7 +17,7 @@ image_chloe = Image.open('images/Chloe.jpg')
 image_parul = Image.open('images/Parul.jpg')
 
 with left_co:
-    st.image(image,width=685, caption='Andrew, Maximilian, Parul, Mike, Arya, Henry, Chloe, Laura, Samuel, \n Krish, Jim, Alex, Kalindi, Elena, Walter White, Jules, Pascaline, Kamilla')
+    st.image(image,width=685, caption='Andrew, Maximilian, Parul, Mike, Arya, Henry, Chloe, Laura, Samuel, Krish, Jim, Alex, Kalindi, Elena, Walter White, Jules, Pascaline, Kamilla')
 
 col1, col2 = st.columns(2)
 
@@ -36,7 +36,6 @@ with col2:
                 accept_multiple_files=False)
     if audio_parul:
         st.audio(audio_parul)
-
 with st.container():
     st.empty()
 with st.container():
