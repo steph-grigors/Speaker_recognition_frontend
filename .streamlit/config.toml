@@ -1,0 +1,11 @@
+[theme] # You have to add this line
+
+#Click button
+primaryColor = '#1d4e89' # Bright Orange
+
+#Back-fond
+backgroundColor = '#d8f3dc' # Dark Blue
+
+
+#Blocks
+secondaryBackgroundColor = '#61a0af' # Lighter Blue
