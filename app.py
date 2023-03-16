@@ -24,18 +24,19 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown("<h2 style='text-align: center; color: black;'>Chloe</h2>", unsafe_allow_html=True)
     st.image(image_chloe,width=343)
-    audio_chloe = st.file_uploader("**Upload Chloe's audio file** (.wav) :notes:",type=['wav'],
-                accept_multiple_files=False)
-    if audio_chloe:
-        st.audio(audio_chloe)
+    #### audio
+    audio_file_chloe = open('Audios/Chloe_arctic_a0024.wav', 'rb')
+    audio_bytes_chloe = audio_file_chloe.read()
+    st.audio(audio_bytes_chloe, format='audio/ogg')
 
 with col2:
     st.markdown("<h2 style='text-align: center; color: black;'>Parul</h2>", unsafe_allow_html=True)
     st.image(image_parul,width=343)
-    audio_parul = st.file_uploader("**Upload Parul's audio file** (.wav) :notes:",type=['wav'],
-                accept_multiple_files=False)
-    if audio_parul:
-        st.audio(audio_parul)
+    #### audio
+    audio_file_parul = open('Audios/Parul_arctic_a0017.wav', 'rb')
+    audio_bytes_parul = audio_file_parul.read()
+    st.audio(audio_bytes_parul, format='audio/ogg')
+
 with st.container():
     st.empty()
 with st.container():
@@ -44,7 +45,6 @@ with st.container():
 audio = st.file_uploader('**Please upload a random audio file** (.wav) :notes:',type=['wav'],
                 accept_multiple_files=False)
 
-# audio, sample_rate = librosa.load(audiofile_path, sr= None, mono = True, offset = 0.0, duration = None, res_type='soxr_hq')
 
 if audio:
     st.audio(audio)
@@ -60,9 +60,9 @@ if audio:
 
     figure_sound_wave = plt.figure(figsize=(15, 5))
     plt.plot(times,signal_array)
-    plt.title('signal_array',fontsize=15)
-    plt.ylabel('Signal Value',fontsize=15)
-    plt.xlabel('Time (s)',fontsize=15)
+    plt.title('Audio Signal',fontsize=15)
+    plt.ylabel('Amplitude',fontsize=15)
+    plt.xlabel('Time',fontsize=15)
     plt.xlim(0,t_audio)
     plt.show()
     st.pyplot(figure_sound_wave)
@@ -70,8 +70,8 @@ if audio:
     figure_sound_spectrogram = plt.figure(figsize=(15, 5))
     plt.specgram(signal_array, Fs=sample_freq, vmin=-20, vmax=50)
     plt.title('MEL Spectogram',fontsize=15)
-    plt.ylabel('Frequency (Hz)',fontsize=15)
-    plt.xlabel('Time (s)',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.xlabel('Time',fontsize=15)
     plt.xlim(0,t_audio)
     plt.colorbar()
     plt.show()
